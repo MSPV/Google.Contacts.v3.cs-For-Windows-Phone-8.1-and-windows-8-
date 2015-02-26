@@ -1,5 +1,5 @@
-// Coded at 2015 by billyriantono
-// 
+// Coded By Billy Riantono (at) 2015
+//
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
 // the License. You may obtain a copy of the License at
 //
@@ -7,7 +7,8 @@
 //
 // Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
 // an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations under the License
+// specific language governing permissions and limitations under the License.
+
 /**
  * \mainpage
  *   Contacts API Version v3
@@ -15,18 +16,18 @@
  * \section ApiInfo API Version Information
  *    <table>
  *      <tr><th>API
- *          <td><a href='https://developers.google.com/contacts/'>Contacts API</a>
- *      <tr><th>API Version<td>v2
- *      <tr><th>API Rev<td>161
+ *          <td><a href='https://developers.google.com/google-apps/contacts/v3/'>Contacts API</a>
+ *      <tr><th>API Version<td>v3
  *      <tr><th>API Docs
- *          <td><a href='https://developers.google.com/contacts/'>
- *              https://developers.google.com/contacts/</a>
+ *          <td><a href='https://developers.google.com/google-apps/contacts/v3/'>
+ *              https://developers.google.com/google-apps/contacts/v3/</a>
  *      <tr><th>Discovery Name<td>contacts
- *      <tr><th>Generated At<td>2015-02-13 16:44:27 UTC
+ *    </table>
+ *
  * \section ForMoreInfo For More Information
  *
- * The complete API documentation for using Drive API can be found at
- * <a href='https://developers.google.com/drive/'>https://developers.google.com/drive/</a>.
+ * The complete API documentation for using Contacts API can be found at
+ * <a href='https://developers.google.com/google-apps/contacts/v3/'>https://developers.google.com/google-apps/contacts/v3/</a>.
  *
  * For more information about the Google APIs Client Library for .NET, see
  * <a href='https://developers.google.com/api-client-library/dotnet/get_started'>
@@ -85,7 +86,7 @@ namespace Google.Apis.Contacts.v3.Data
 
 namespace Google.Apis.Contacts.v3
 {
-    /// <summary>The Drive Service.</summary>
+    /// <summary>The Contacts Service.</summary>
     public class ContactsService : Google.Apis.Services.BaseClientService
     {
         /// <summary>The API version.</summary>
@@ -131,13 +132,13 @@ namespace Google.Apis.Contacts.v3
             get { return "m8/feeds/"; }
         }
 
-        /// <summary>Available OAuth 2.0 scopes for use with the Drive API.</summary>
+        /// <summary>Available OAuth 2.0 scopes for use with the Contacts API.</summary>
         public class Scope
         {
-            /// <summary>View and manage the files in your Google Drive</summary>
+            /// <summary>View and manage the contact in your Google Contacts</summary>
             public static string FullContacts = "https://www.google.com/m8/feeds";
 
-            /// <summary>View and manage its own configuration data in your Google Drive</summary>
+            /// <summary>View and manage its own configuration data in your Google Contacts</summary>
             public static string ReadOnly = "https://www.googleapis.com/auth/contacts.readonly";
 
         }
@@ -146,7 +147,7 @@ namespace Google.Apis.Contacts.v3
 
         private readonly ContactsResource contact;
 
-        /// <summary>Gets the About resource.</summary>
+        /// <summary>Gets the List Contacts resource.</summary>
         public virtual ContactsResource Contact
         {
             get { return contact; }
@@ -154,10 +155,10 @@ namespace Google.Apis.Contacts.v3
 
     }
 
-    ///<summary>A base abstract class for Drive requests.</summary>
+    ///<summary>A base abstract class for Contacts requests.</summary>
     public abstract class ContactsServiceRequest<TResponse> : Google.Apis.Requests.ClientServiceRequest<TResponse>
     {
-        ///<summary>Constructs a new DriveBaseServiceRequest instance.</summary>
+        ///<summary>Constructs a new ContactsBaseServiceRequest instance.</summary>
         protected ContactsServiceRequest(Google.Apis.Services.IClientService service)
             : base(service)
         {
@@ -204,7 +205,7 @@ namespace Google.Apis.Contacts.v3
         [Google.Apis.Util.RequestParameterAttribute("userIp", Google.Apis.Util.RequestParameterType.Query)]
         public virtual string UserIp { get; set; }
 
-        /// <summary>Initializes Drive parameter list.</summary>
+        /// <summary>Initializes Contacts parameter list.</summary>
         protected override void InitParameters()
         {
             base.InitParameters();
@@ -291,24 +292,24 @@ namespace Google.Apis.Contacts.v3
         }
 
 
-        /// <summary>Gets the information about the current user along with Drive API settings</summary>
-        public virtual GetRequest Get(string email)
+        /// <summary>Gets the information about the current user along with Contacts API settings</summary>
+        public virtual GetRequest Get(string email, int maxResult = 2000)
         {
 
-            return new GetRequest(service, email);
+            return new GetRequest(service, email, maxResult);
         }
 
-        /// <summary>Gets the information about the current user along with Drive API settings</summary>
+        /// <summary>Gets the information about the current user along with Contacts API settings</summary>
         public class GetRequest : ContactsServiceRequest<Google.Apis.Contacts.v3.Data.ContactList>
         {
             /// <summary>Constructs a new Get request.</summary>
-            public GetRequest(Google.Apis.Services.IClientService service, string email)
+            public GetRequest(Google.Apis.Services.IClientService service, string email,int maxResult = 2000,AltEnum alt = AltEnum.Json)
                 : base(service)
             {
                 Email = email;
                 InitParameters();
-                Alt = AltEnum.Json;
-                MaxResults = "10000";
+                Alt = alt;
+                MaxResults = maxResult.ToString();
             }
 
 
